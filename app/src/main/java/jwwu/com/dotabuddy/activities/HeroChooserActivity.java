@@ -1,0 +1,193 @@
+package jwwu.com.dotabuddy.activities;
+
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import jwwu.com.dotabuddy.R;
+import jwwu.com.dotabuddy.adapters.HeroChooserArrayAdapter;
+import jwwu.com.dotabuddy.database.DotaDBContract;
+import jwwu.com.dotabuddy.database.DotaDBSQLiteHelper;
+
+public class HeroChooserActivity extends AppCompatActivity {
+
+    Cursor curs;
+    HeroChooserArrayAdapter adapter;
+    private TextWatcher filterTextWatcher = new TextWatcher() {
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            if (count < before) {
+                // We're deleting char so we need to reset the adapter data
+                adapter.resetData();
+            }
+
+            adapter.getFilter().filter(s.toString());
+        }
+    };
+
+
+    public enum NextActivity {
+        HEROSITE, CURRENT_GAME
+    }
+    String[] ids;
+    PortraitAndHeroname[] picAndHeroname;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hero_chooser);
+
+        ListView lv = (ListView) findViewById(R.id.listView2);
+
+        // Create new helper
+        DotaDBSQLiteHelper dbHelper = new DotaDBSQLiteHelper(getApplicationContext());
+        // Get the database. If it does not exist, this is where it will also be created.
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+
+        //TODO close cursor, TODO Singleton with Herodata, so no more costly database operations, TODO better activity lifecycle handling
+        curs = db.rawQuery("select *"+
+                " from "+ DotaDBContract.DotaHeroesDatabase.TABLE_NAME,null);
+        ids = new String[curs.getCount()];
+        picAndHeroname = new PortraitAndHeroname[curs.getCount()];
+
+        if(curs.moveToFirst())
+            do {
+                int i = curs.getPosition();
+                ids[i]=curs.getString(curs.getColumnIndexOrThrow(DotaDBContract.DotaHeroesDatabase._ID));
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+                Bitmap bitmap = BitmapFactory.decodeFile(curs.getString(curs.getColumnIndexOrThrow(DotaDBContract.DotaHeroesDatabase.COLUMN_NAME_PICTURE)), options);
+                String name = curs.getString(curs.getColumnIndexOrThrow(DotaDBContract.DotaHeroesDatabase.COLUMN_NAME_NAME)).replace("_"," ");
+
+                picAndHeroname[i] = new PortraitAndHeroname(bitmap,name);
+            }
+            while(curs.moveToNext());
+
+
+        adapter = new HeroChooserArrayAdapter(this,picAndHeroname);
+        lv.setAdapter(adapter);
+
+        lv.setTextFilterEnabled(true);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                finish(position);
+            }
+        });
+
+        final EditText editText = (EditText) findViewById(R.id.editText);   //TODO Is it possible to filter without textfields?
+        editText.addTextChangedListener(filterTextWatcher);
+
+        db.close();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void finish() {  //called by default
+        finish(-1);
+    }
+
+    public void finish(int position) {
+        if(!curs.isClosed())
+            curs.close();
+
+        if(position<0) {        //called by default
+            if(getIntent()!= null && getIntent().getStringExtra("nextActivity").equals(NextActivity.CURRENT_GAME.toString())) {
+                //CURRENT GAME --> RESULT(CANCELED) = ...
+                Intent returnIntent = new Intent();
+                setResult(RESULT_CANCELED, returnIntent);
+                returnIntent.putExtra("result", "You did not pick a Hero");
+            }
+            super.finish();
+        }
+        else {  //"GOOD" CASES
+            //HEROSITE --> START HEROSITE(heroname)
+            if(getIntent()!=null && getIntent().getStringExtra("nextActivity").equals(NextActivity.HEROSITE.toString())) {
+                Intent intent = new Intent(this, HeroSite.class);
+                intent.putExtra("hero",picAndHeroname[position].name.replace(" ","_"));
+                startActivity(intent);
+                super.finish();
+            }
+            else {
+                //CURRENT GAME --> RESULT(OK) = heroname
+                Intent returnIntent = new Intent();
+                setResult(RESULT_OK, returnIntent);
+                returnIntent.putExtra("result", picAndHeroname[position].name);
+                super.finish();
+            }
+        }
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish(-1);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public class PortraitAndHeroname {
+        public PortraitAndHeroname(Bitmap picture, String name) {
+            this.name=name;
+            this.bitmap=picture;
+        }
+
+        public String name;
+        public Bitmap bitmap;
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(!curs.isClosed())
+            curs.close();
+        adapter = null;
+        filterTextWatcher = null;
+        ids = null;
+        picAndHeroname = null;
+        super.onDestroy();
+    }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <jwwu.com.dotabuddy.views.SquareImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view"
+        android:src="@drawable/radiant_ancients" />
+
+    <jwwu.com.dotabuddy.views.SquareProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view2"
+        android:indeterminate="false"
+        android:max="100"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progress="50"
+        android:background="@android:color/transparent"
+        android:alpha="0.5"
+        android:visibility="visible"
+        android:progressDrawable="@drawable/customprogress" />
+
+</FrameLayout>
