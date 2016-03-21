@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="jwwu.com.dotabuddy.activities.HeroSite"
+    tools:context=".activities.LexikonActivity"
     tools:showIn="@layout/activity_hero_site"
     android:fillViewport="true"
     >
@@ -20,10 +20,12 @@
         android:layout_marginBottom="47dp">
 
 
-        <ExpandableListView
+        <android.support.v7.widget.RecyclerView
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/expl_stats" />
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerview" />
+
         <!-- TODO: for some reason height cant wrap_content, match_parent doesnt work either, only absolute value..
             need to check for solutions..
 
@@ -33,6 +35,10 @@
             http://stackoverflow.com/questions/6210895/listview-inside-scrollview-is-not-scrolling-on-android/6211286#6211286
 
             what about expandable recyclerview? https://github.com/bignerdranch/expandable-recycler-view
+            doesnt work see #27 https://code.google.com/p/android/issues/detail?id=193958&colspec=ID%20Type%20Status%20Owner%20Summary%20Stars#makechanges
+
+
+
             or this http://anandbose.github.io/android_recyclerview_expandablelistview.html
             -->
 

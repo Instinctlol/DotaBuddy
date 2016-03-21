@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 public final class DotaDBContract {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION                    = 1;
+    public static final int DATABASE_VERSION                    = 2;
     public static final String DATABASE_NAME                    = "DotaTimers.db";
     private static final String TEXT_TYPE_NOTNULL_CONFLICT_FAIL = " TEXT NOT NULL ON CONFLICT FAIL";
     private static final String TEXT_TYPE                       = " TEXT";
@@ -62,7 +62,7 @@ public final class DotaDBContract {
 
     public static abstract class DotaHeroesDatabase implements BaseColumns {
         public static final String TABLE_NAME = "heroes";
-        public static final String COLUMN_NAME_NAME = "name";
+        public static final String COLUMN_NAME_NAME = "name";       //UNIQUE
         public static final String COLUMN_NAME_STATS = "stats";
         public static final String COLUMN_NAME_BALANCECHANGELOG = "balancechangelog";
         public static final String COLUMN_NAME_PICTURE = "picture";
@@ -82,14 +82,17 @@ public final class DotaDBContract {
 
     public static abstract class DotaAbilitiesDatabase implements BaseColumns {
         public static final String TABLE_NAME = "abilities";
-        public static final String COLUMN_NAME_HERO_ID = "hero_id";     //FOREIGN KEY
-        public static final String COLUMN_NAME_NAME = "name";           //UNIQUE
-        public static final String COLUMN_NAME_IMAGE = "image";
+        public static final String COLUMN_NAME_HERO_NAME = "hero_name";     //FOREIGN KEY
+        public static final String COLUMN_NAME_NAME = "name";               //UNIQUE
+        public static final String COLUMN_NAME_IMAGEPATH = "image";
+        public static final String COLUMN_NAME_IMAGENAME = "imagename";
         public static final String COLUMN_NAME_TYPE = "type";
+        public static final String COLUMN_NAME_DAMAGETYPE = "damagetype";
         public static final String COLUMN_NAME_DESCRIPTION = "desc";
         public static final String COLUMN_NAME_LORE = "lore";
         public static final String COLUMN_NAME_ABILITY = "ability";
         public static final String COLUMN_NAME_AFFECTS = "affects";
+        public static final String COLUMN_NAME_AFFECTS2 = "affects2";
         public static final String COLUMN_NAME_BKBBLOCK = "bkbblock";
         public static final String COLUMN_NAME_BKBTEXT = "bkbtext";
         public static final String COLUMN_NAME_LINKENBLOCK = "linkenblock";
@@ -111,14 +114,17 @@ public final class DotaDBContract {
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY," +
-                COLUMN_NAME_HERO_ID + INT_TYPE_NOTNULL_CONFLICT_FAIL + COMMA_SEP +    //HERO ID CAN NOT BE NULL
+                COLUMN_NAME_HERO_NAME + TEXT_TYPE_NOTNULL_CONFLICT_FAIL + COMMA_SEP +    //HERO ID CAN NOT BE NULL
                 COLUMN_NAME_NAME + TEXT_TYPE_NOTNULL_CONFLICT_FAIL + COMMA_SEP +     //ABILITY NAME CAN NOT BE NULL
-                COLUMN_NAME_IMAGE + TEXT_TYPE + COMMA_SEP +
+                COLUMN_NAME_IMAGENAME + TEXT_TYPE + COMMA_SEP +
+                COLUMN_NAME_IMAGEPATH + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_TYPE + TEXT_TYPE + COMMA_SEP +
+                COLUMN_NAME_DAMAGETYPE + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_LORE + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_ABILITY + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_AFFECTS + TEXT_TYPE + COMMA_SEP +
+                COLUMN_NAME_AFFECTS2 + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_BKBBLOCK + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_BKBTEXT + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_LINKENBLOCK + TEXT_TYPE + COMMA_SEP +
@@ -138,7 +144,7 @@ public final class DotaDBContract {
                 COLUMN_NAME_AGHANIMSUPGRADE + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NAME_NOTESLIST + TEXT_TYPE + COMMA_SEP +
                 "UNIQUE("+COLUMN_NAME_NAME+") ON CONFLICT REPLACE" + COMMA_SEP +
-                "FOREIGN KEY("+COLUMN_NAME_HERO_ID+") REFERENCES "+ DotaHeroesDatabase.TABLE_NAME +"("+DotaHeroesDatabase._ID+")" +
+                "FOREIGN KEY("+COLUMN_NAME_HERO_NAME+") REFERENCES "+ DotaHeroesDatabase.TABLE_NAME +"("+DotaHeroesDatabase.COLUMN_NAME_NAME+")" +
                 ")";
 
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;

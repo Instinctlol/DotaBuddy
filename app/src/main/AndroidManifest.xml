@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -28,15 +29,7 @@
                 android:value="jwwu.com.dotabuddy.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.DBUpdaterActivity"
-            android:label="@string/title_activity_dbupdater"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="jwwu.com.dotabuddy.activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.HeroSite"
+            android:name=".activities.LexikonActivity"
             android:label="@string/title_activity_hero_site"
             android:parentActivityName=".activities.HeroChooserActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -44,8 +37,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jwwu.com.dotabuddy.activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.HeroChooserActivity"
+        <activity
+            android:name=".activities.HeroChooserActivity"
             android:label="@string/hero_chooser"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jwwu.com.dotabuddy.activities.MainActivity" />
+        </activity>
+        <activity android:name=".activities.UpdateDatabaseActivity"
+            android:label="@string/title_activity_updatedatabase"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="android-priority-jobqueue-v2-SNAPSHOT">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.yigit/android-priority-jobqueue/v2-SNAPSHOT/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.yigit/android-priority-jobqueue/v2-SNAPSHOT/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.yigit/android-priority-jobqueue/v2-SNAPSHOT/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.yigit/android-priority-jobqueue/v2-SNAPSHOT/2495a1b93754c3c71df187bee5132920af1ff713/android-priority-jobqueue-v2-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +26,7 @@ import jwwu.com.dotabuddy.R;
 import jwwu.com.dotabuddy.database.DotaDBContract;
 import jwwu.com.dotabuddy.database.DotaDBSQLiteHelper;
 import jwwu.com.dotabuddy.dota_logic.DotaGameTime;
+import jwwu.com.dotabuddy.dota_logic.DotaSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -123,6 +124,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        Button bt5 = (Button) findViewById(R.id.button5);
+        bt5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DotaSingleton.getInstance().init(getApplicationContext(),(TextView) findViewById(R.id.textView12),(ProgressBar) findViewById(R.id.progressBar2));
+            }
+        });
 
     }
 
@@ -267,12 +276,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openUpdateDB() {
-        Intent intent = new Intent(this, DBUpdaterActivity.class);
+        Intent intent = new Intent(this, UpdateDatabaseActivity.class);
         startActivity(intent);
     }
 
     private void openHeroSite(String hero) {
-        Intent intent = new Intent(this, HeroSite.class);
+        Intent intent = new Intent(this, LexikonActivity.class);
         intent.putExtra("hero",hero);
         startActivity(intent);
     }

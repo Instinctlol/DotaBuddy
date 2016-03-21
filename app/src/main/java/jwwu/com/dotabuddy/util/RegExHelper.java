@@ -1,4 +1,4 @@
-package jwwu.com.dotabuddy.helpers;
+package jwwu.com.dotabuddy.util;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -33,6 +33,8 @@ public final class RegExHelper {
     }
 
     public static ArrayList<String> searchPatternInSource(String pattern, String source) {
+
+
         // the pattern we want to search for
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(source);
@@ -42,8 +44,8 @@ public final class RegExHelper {
             findings.add(m.group(1));
 
         if(findings.isEmpty())
-        //we dont want to return empty arraylists, because we need to save these values/findings.
-        // if no successCount is found, then it is simply an empty string, which we are going to save
+            //we dont want to return empty arraylists, because we need to save these values/findings.
+            // if no successCount is found, then it is simply an empty string, which we are going to save
             findings.add("");
 
         return findings;

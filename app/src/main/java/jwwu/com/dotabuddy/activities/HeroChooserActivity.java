@@ -1,10 +1,8 @@
 package jwwu.com.dotabuddy.activities;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,12 +15,12 @@ import android.widget.ListView;
 
 import jwwu.com.dotabuddy.R;
 import jwwu.com.dotabuddy.adapters.HeroChooserArrayAdapter;
-import jwwu.com.dotabuddy.database.DotaDBContract;
 import jwwu.com.dotabuddy.database.DotaDBSQLiteHelper;
+import jwwu.com.dotabuddy.dota_logic.DotaSingleton;
+import jwwu.com.dotabuddy.dota_logic.Hero;
 
 public class HeroChooserActivity extends AppCompatActivity {
 
-    Cursor curs;
     HeroChooserArrayAdapter adapter;
     private TextWatcher filterTextWatcher = new TextWatcher() {
 
@@ -71,13 +69,15 @@ public class HeroChooserActivity extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
 
-        //TODO close cursor, TODO Singleton with Herodata, so no more costly database operations, TODO better activity lifecycle handling
-        curs = db.rawQuery("select *"+
+        //TODO better activity lifecycle handling
+        /*curs = db.rawQuery("select *"+
                 " from "+ DotaDBContract.DotaHeroesDatabase.TABLE_NAME,null);
         ids = new String[curs.getCount()];
-        picAndHeroname = new PortraitAndHeroname[curs.getCount()];
+        picAndHeroname = new PortraitAndHeroname[DotaSingleton.getInstance().getHeroes().size()];*/
 
-        if(curs.moveToFirst())
+
+
+        /*if(curs.moveToFirst())
             do {
                 int i = curs.getPosition();
                 ids[i]=curs.getString(curs.getColumnIndexOrThrow(DotaDBContract.DotaHeroesDatabase._ID));
@@ -89,8 +89,13 @@ public class HeroChooserActivity extends AppCompatActivity {
 
                 picAndHeroname[i] = new PortraitAndHeroname(bitmap,name);
             }
-            while(curs.moveToNext());
+            while(curs.moveToNext());*/
 
+        picAndHeroname = new PortraitAndHeroname[DotaSingleton.getInstance().getHeroes().size()];
+        int count=0;
+        for(Hero hero : DotaSingleton.getInstance().getHeroes()) {
+            picAndHeroname[count++] = new PortraitAndHeroname(hero.mPortrait,hero.mName);
+        }
 
         adapter = new HeroChooserArrayAdapter(this,picAndHeroname);
         lv.setAdapter(adapter);
@@ -122,9 +127,6 @@ public class HeroChooserActivity extends AppCompatActivity {
     }
 
     public void finish(int position) {
-        if(!curs.isClosed())
-            curs.close();
-
         if(position<0) {        //called by default
             if(getIntent()!= null && getIntent().getStringExtra("nextActivity").equals(NextActivity.CURRENT_GAME.toString())) {
                 //CURRENT GAME --> RESULT(CANCELED) = ...
@@ -135,10 +137,10 @@ public class HeroChooserActivity extends AppCompatActivity {
             super.finish();
         }
         else {  //"GOOD" CASES
-            //HEROSITE --> START HEROSITE(heroname)
+            //HEROSITE --> START LEXIKON(heroname)
             if(getIntent()!=null && getIntent().getStringExtra("nextActivity").equals(NextActivity.HEROSITE.toString())) {
-                Intent intent = new Intent(this, HeroSite.class);
-                intent.putExtra("hero",picAndHeroname[position].name.replace(" ","_"));
+                Intent intent = new Intent(this, LexikonActivity.class);
+                intent.putExtra("hero",picAndHeroname[position].name);
                 startActivity(intent);
                 super.finish();
             }
@@ -182,8 +184,6 @@ public class HeroChooserActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(!curs.isClosed())
-            curs.close();
         adapter = null;
         filterTextWatcher = null;
         ids = null;

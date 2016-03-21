@@ -1,32 +1,75 @@
 package jwwu.com.dotabuddy.dota_logic;
 
 
+import android.util.SparseArray;
+
 import java.util.ArrayList;
 
 public class HeroStats {
-    //TODO its better to use a List.. delete old variables and edit DBUpdaterActivity so it adds Stat Objects to list
-    public ArrayList<Stat> statArrayList;
-    protected String primaryAttribute;      //1
-    protected String strength;              //2
-    protected String strengthGrow;          //3
-    protected String agility;               //4
-    protected String agilityGrow;           //5
-    protected String intelligence;          //6
-    protected String intelligenceGrow;      //7
-    protected String damageMin;             //8
-    protected String damageMax;             //9
-    protected String armor;                 //10
-    protected String moveSpeed;             //11
-    protected String attackRange;           //12
-    protected String attackPoint;           //13
-    protected String attackBackswing;       //14
-    protected String bat;                   //15
-    protected String missileSpeed;          //16
-    protected String sightRangeDay;         //17
-    protected String sightRangeNight;       //18
-    protected String turnRate;              //19
-    protected String collisionSize;         //20
-    private static String strSeparator = "__,__";
+    private SparseArray<Stat> statSparseArray;
+
+
+    private static final String STR_SEPERATOR = "__,__";
+
+    private static final String PRIMARYATTRIBUTENAME = "Primary Attribute";     //1
+    private static final int PRIMARYATTRIBUTEINDEX = 0;
+
+    private static final String STRENGTHNAME = "Strength";                      //2
+    private static final int STRENGTHINDEX = 1;
+
+    private static final String STRENGTHGROWNAME = "StrengthGrow";              //3
+    private static final int STRENGTHGROWINDEX = 2;
+
+    private static final String AGILITYNAME = "Agility";                        //4
+    private static final int AGILITYINDEX = 3;
+
+    private static final String AGILITYGROWNAME = "AgilityGrow";                //5
+    private static final int AGILITYGROWINDEX = 4;
+
+    private static final String INTELLIGENCENAME = "Intelligence";              //6
+    private static final int INTELLIGENCEINDEX = 5;
+
+    private static final String INTELLIGENCEGROWNAME = "IntelligenceGrow";      //7
+    private static final int INTELLIGENCEGROWINDEX = 6;
+
+    private static final String DAMAGEMINNAME = "DamageMin";                    //8
+    private static final int DAMAGEMININDEX = 7;
+
+    private static final String DAMAGEMAXNAME = "DamageMax";                    //9
+    private static final int DAMAGEMAXINDEX = 8;
+
+    private static final String ARMORNAME = "Armor";                            //10
+    private static final int ARMORINDEX = 9;
+
+    private static final String MOVESPEEDNAME = "Movespeed";                    //11
+    private static final int MOVESPEEDINDEX = 10;
+
+    private static final String ATTACKRANGENAME = "Attackrange";                //12
+    private static final int ATTACKRANGEINDEX = 11;
+
+    private static final String ATTACKPOINTNAME = "AttackPoint";                //13
+    private static final int ATTACKPOINTINDEX = 12;
+
+    private static final String ATTACKBACKSWINGNAME = "AttackBackSwing";        //14
+    private static final int ATTACKBACKSWINGINDEX = 13;
+
+    private static final String BASEATTACKTIMENAME = "BaseAttackTime";          //15
+    private static final int BASEATTACKTIMEINDEX = 14;
+
+    private static final String MISSILESPEEDNAME = "Missile Speed";             //16
+    private static final int MISSILESPEEDINDEX = 15;
+
+    private static final String SIGHTRANGEDAYNAME = "SightRangeDay";            //17
+    private static final int SIGHTRANGEDAYINDEX = 16;
+
+    private static final String SIGHTRANGENIGHTNAME = "SightRangeNight";        //18
+    private static final int SIGHTRANGENIGHTINDEX = 17;
+
+    private static final String TURNRATENAME = "Turnrate";                      //19
+    private static final int TURNRATEINDEX = 18;
+
+    private static final String COLLISIONSIZENAME = "Collisionsize";            //20
+    private static final int COLLISIONSIZEINDEX = 19;
 
     public HeroStats(String primaryAttribute, String strength, String strengthGrow, String agility,
                      String agilityGrow, String intelligence, String intelligenceGrow,
@@ -34,244 +77,248 @@ public class HeroStats {
                      String attackRange, String attackPoint, String attackBackswing, String bat,
                      String missileSpeed, String sightRangeDay, String sightRangeNight,
                      String turnRate, String collisionSize) {
-        this.primaryAttribute = primaryAttribute;
-        this.strength = strength;
-        this.strengthGrow = strengthGrow;
-        this.agility = agility;
-        this.agilityGrow = agilityGrow;
-        this.intelligence = intelligence;
-        this.intelligenceGrow = intelligenceGrow;
-        this.damageMin = damageMin;
-        this.damageMax = damageMax;
-        this.armor = armor;
-        this.moveSpeed = moveSpeed;
-        this.attackRange = attackRange;
-        this.attackPoint = attackPoint;
-        this.attackBackswing = attackBackswing;
-        this.bat = bat;
-        this.missileSpeed = missileSpeed;
-        this.sightRangeDay = sightRangeDay;
-        this.sightRangeNight = sightRangeNight;
-        this.turnRate = turnRate;
-        this.collisionSize = collisionSize;
-        this.statArrayList = new ArrayList<>();
-        this.statArrayList.add(new Stat("Primary Attribute",primaryAttribute));
-        this.statArrayList.add(new Stat("Strength",strength));
-        this.statArrayList.add(new Stat("StrengthGrow",strengthGrow));
-        this.statArrayList.add(new Stat("Agility",agility));
-        this.statArrayList.add(new Stat("AgilityGrow",agilityGrow));
-        this.statArrayList.add(new Stat("Intelligence",intelligence));
-        this.statArrayList.add(new Stat("IntelligenceGrow",intelligenceGrow));
-        this.statArrayList.add(new Stat("DamageMin",damageMin));
-        this.statArrayList.add(new Stat("DamageMax",damageMax));
-        this.statArrayList.add(new Stat("Armor",armor));
-        this.statArrayList.add(new Stat("Movespeed",moveSpeed));
-        this.statArrayList.add(new Stat("Attackrange",attackRange));
-        this.statArrayList.add(new Stat("ArrackPoint",attackPoint));
-        this.statArrayList.add(new Stat("AttackBackSwing",attackBackswing));
-        this.statArrayList.add(new Stat("BaseAttackTime",bat));
-        this.statArrayList.add(new Stat("Missile Speed",missileSpeed));
-        this.statArrayList.add(new Stat("SightRangeDay",sightRangeDay));
-        this.statArrayList.add(new Stat("SightRangeNight",sightRangeNight));
-        this.statArrayList.add(new Stat("Turnrate",turnRate));
-        this.statArrayList.add(new Stat("Collisionsize",collisionSize));
+        this.statSparseArray = new SparseArray<>();
+        setPrimaryAttribute(primaryAttribute);
+        setStrength(strength);
+        setStrengthGrow(strengthGrow);
+        setAgility(agility);
+        setAgilityGrow(agilityGrow);
+        setIntelligence(intelligence);
+        setIntelligenceGrow(intelligenceGrow);
+        setDamageMin(damageMin);
+        setDamageMax(damageMax);
+        setArmor(armor);
+        setMoveSpeed(moveSpeed);
+        setAttackRange(attackRange);
+        setAttackPoint(attackPoint);
+        setAttackBackswing(attackBackswing);
+        setBat(bat);
+        setMissileSpeed(missileSpeed);
+        setSightRangeDay(sightRangeDay);
+        setSightRangeNight(sightRangeNight);
+        setTurnRate(turnRate);
+        setCollisionSize(collisionSize);
+    }
+
+    public HeroStats(String dbString) {
+        this.statSparseArray = new SparseArray<>();
+        String[] arr = dbString.split(STR_SEPERATOR);
+        setPrimaryAttribute(arr[PRIMARYATTRIBUTEINDEX]);
+        setStrength(arr[STRENGTHINDEX]);
+        setStrengthGrow(arr[STRENGTHGROWINDEX]);
+        setAgility(arr[AGILITYINDEX]);
+        setAgilityGrow(arr[AGILITYGROWINDEX]);
+        setIntelligence(arr[INTELLIGENCEINDEX]);
+        setIntelligenceGrow(arr[INTELLIGENCEGROWINDEX]);
+        setDamageMin(arr[DAMAGEMININDEX]);
+        setDamageMax(arr[DAMAGEMAXINDEX]);
+        setArmor(arr[ARMORINDEX]);
+        setMoveSpeed(arr[MOVESPEEDINDEX]);
+        setAttackRange(arr[ATTACKRANGEINDEX]);
+        setAttackPoint(arr[ATTACKPOINTINDEX]);
+        setAttackBackswing(arr[ATTACKBACKSWINGINDEX]);
+        setBat(arr[BASEATTACKTIMEINDEX]);
+        setMissileSpeed(arr[MISSILESPEEDINDEX]);
+        setSightRangeDay(arr[SIGHTRANGEDAYINDEX]);
+        setSightRangeNight(arr[SIGHTRANGENIGHTINDEX]);
+        setTurnRate(arr[TURNRATEINDEX]);
+        setCollisionSize(arr[COLLISIONSIZEINDEX]);
     }
 
     public HeroStats() {
-        this.statArrayList = new ArrayList<>();
+        this.statSparseArray = new SparseArray<>();
     }
 
     public static final String getStringRepresentation(HeroStats stats){
-        String[] array = {stats.primaryAttribute, stats.strength, stats.strengthGrow, stats.agility,
-                stats.agilityGrow, stats.intelligence, stats.intelligenceGrow, stats.damageMin,
-                stats.damageMax, stats.armor, stats.moveSpeed, stats.attackRange, stats.attackPoint,
-                stats.attackBackswing, stats.bat, stats.missileSpeed, stats.sightRangeDay,
-                stats.sightRangeNight, stats.turnRate, stats.collisionSize};
+        String[] array = {stats.getPrimaryAttribute(), stats.getStrength(), stats.getStrengthGrow(), stats.getAgility(),
+                stats.getAgilityGrow(), stats.getIntelligence(), stats.getIntelligenceGrow(), stats.getDamageMin(),
+                stats.getDamageMax(), stats.getArmor(), stats.getMoveSpeed(), stats.getAttackRange(), stats.getAttackPoint(),
+                stats.getAttackBackswing(), stats.getBat(), stats.getMissileSpeed(), stats.getSightRangeDay(),
+                stats.getSightRangeNight(), stats.getTurnRate(), stats.getCollisionSize()};
 
         String str = "";
         for (int i = 0;i<array.length; i++) {
             str = str+array[i];
             // Do not append comma at the end of last element
             if(i<array.length-1){
-                str = str+strSeparator;
+                str = str+ STR_SEPERATOR;
             }
         }
         return str;
     }
 
-
+    public ArrayList<Stat> getStatList() {
+        ArrayList<Stat> statlist = new ArrayList<>();
+        for(int i=0; i<statSparseArray.size(); i++) {
+            statlist.add(statSparseArray.valueAt(i));
+        }
+        return statlist;
+    }
 
     public static HeroStats convertStringToHeroStats(String str){
-        String[] arr = str.split(strSeparator);
+        String[] arr = str.split(STR_SEPERATOR);
         return new HeroStats(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7],
                 arr[8], arr[9], arr[10], arr[11], arr[12], arr[13], arr[14], arr[15], arr[16],
                 arr[17], arr[18], arr[19]);
     }
 
-    public String[] getAllStatsWithText() {
-        String[] arr = {"PrimaryAttribute: "+getPrimaryAttribute(),"Strength: "+getStrength(), "StrengthGrow: "+getStrengthGrow(),"Agility: "+getAgility(),"AgilityGrow: "+getAgilityGrow(),"Intelligence: "+getIntelligence(),
-        "IntelligenceGrow: "+getIntelligenceGrow(),"DamageMin: "+getDamageMin(),"DamageMax: "+getDamageMax(),"Armor: "+getArmor(),"Movespeed: "+getMoveSpeed(), "Attackrange: "+getAttackRange(),"AttackPoint: "+getAttackPoint(),
-        "AttackBackswing: "+getAttackBackswing(),"BaseAttackTime: "+getBat(),"Missile Speed: "+getMissileSpeed(),"SightRangeDay: "+getSightRangeDay(),"SightRangeNight: "+getSightRangeNight(),"Turnrate: "+getTurnRate(),"Collisionsize: "+getCollisionSize()};
-        return arr;
-    }
-
     public String getPrimaryAttribute() {
-        return primaryAttribute;
+        return statSparseArray.get(PRIMARYATTRIBUTEINDEX).getValue();
     }
 
     public void setPrimaryAttribute(String primaryAttribute) {
-        this.primaryAttribute = primaryAttribute;
+        this.statSparseArray.put(PRIMARYATTRIBUTEINDEX, new Stat(PRIMARYATTRIBUTENAME,primaryAttribute));
     }
 
     public String getStrength() {
-        return strength;
+        return statSparseArray.get(STRENGTHINDEX).getValue();
     }
 
     public void setStrength(String strength) {
-        this.strength = strength;
+        statSparseArray.put(STRENGTHINDEX,new Stat(STRENGTHNAME, strength));
     }
 
     public String getStrengthGrow() {
-        return strengthGrow;
+        return statSparseArray.get(STRENGTHGROWINDEX).getValue();
     }
 
     public void setStrengthGrow(String strengthGrow) {
-        this.strengthGrow = strengthGrow;
+        statSparseArray.put(STRENGTHGROWINDEX,new Stat(STRENGTHGROWNAME, strengthGrow));
     }
 
     public String getAgility() {
-        return agility;
+        return statSparseArray.get(AGILITYINDEX).getValue();
     }
 
     public void setAgility(String agility) {
-        this.agility = agility;
+        statSparseArray.put(AGILITYINDEX,new Stat(AGILITYNAME, agility));
     }
 
     public String getAgilityGrow() {
-        return agilityGrow;
+        return statSparseArray.get(AGILITYGROWINDEX).getValue();
     }
 
     public void setAgilityGrow(String agilityGrow) {
-        this.agilityGrow = agilityGrow;
+        statSparseArray.put(AGILITYGROWINDEX,new Stat(AGILITYGROWNAME, agilityGrow));
     }
 
     public String getIntelligence() {
-        return intelligence;
+        return statSparseArray.get(INTELLIGENCEINDEX).getValue();
     }
 
     public void setIntelligence(String intelligence) {
-        this.intelligence = intelligence;
+        statSparseArray.put(INTELLIGENCEINDEX,new Stat(INTELLIGENCENAME, intelligence));
     }
 
     public String getIntelligenceGrow() {
-        return intelligenceGrow;
+        return statSparseArray.get(INTELLIGENCEGROWINDEX).getValue();
     }
 
     public void setIntelligenceGrow(String intelligenceGrow) {
-        this.intelligenceGrow = intelligenceGrow;
+        statSparseArray.put(INTELLIGENCEGROWINDEX,new Stat(INTELLIGENCEGROWNAME, intelligenceGrow));
     }
 
     public String getDamageMin() {
-        return damageMin;
+        return statSparseArray.get(DAMAGEMAXINDEX).getValue();
     }
 
     public void setDamageMin(String damageMin) {
-        this.damageMin = damageMin;
+        statSparseArray.put(DAMAGEMININDEX,new Stat(DAMAGEMINNAME, damageMin));
     }
 
     public String getDamageMax() {
-        return damageMax;
+        return statSparseArray.get(DAMAGEMAXINDEX).getValue();
     }
 
     public void setDamageMax(String damageMax) {
-        this.damageMax = damageMax;
+        statSparseArray.put(DAMAGEMAXINDEX,new Stat(DAMAGEMAXNAME, damageMax));
     }
 
     public String getArmor() {
-        return armor;
+        return statSparseArray.get(ARMORINDEX).getValue();
     }
 
     public void setArmor(String armor) {
-        this.armor = armor;
+        statSparseArray.put(ARMORINDEX,new Stat(ARMORNAME, armor));
     }
 
     public String getMoveSpeed() {
-        return moveSpeed;
+        return statSparseArray.get(MOVESPEEDINDEX).getValue();
     }
 
     public void setMoveSpeed(String moveSpeed) {
-        this.moveSpeed = moveSpeed;
+        statSparseArray.put(MOVESPEEDINDEX,new Stat(MOVESPEEDNAME, moveSpeed));
     }
 
     public String getAttackRange() {
-        return attackRange;
+        return statSparseArray.get(ATTACKRANGEINDEX).getValue();
     }
 
     public void setAttackRange(String attackRange) {
-        this.attackRange = attackRange;
+        statSparseArray.put(ATTACKRANGEINDEX,new Stat(ATTACKRANGENAME, attackRange));
     }
 
     public String getAttackPoint() {
-        return attackPoint;
+        return statSparseArray.get(ATTACKPOINTINDEX).getValue();
     }
 
     public void setAttackPoint(String attackPoint) {
-        this.attackPoint = attackPoint;
+        statSparseArray.put(ATTACKPOINTINDEX,new Stat(ATTACKPOINTNAME, attackPoint));
     }
 
     public String getAttackBackswing() {
-        return attackBackswing;
+        return statSparseArray.get(ATTACKBACKSWINGINDEX).getValue();
     }
 
     public void setAttackBackswing(String attackBackswing) {
-        this.attackBackswing = attackBackswing;
+        statSparseArray.put(ATTACKBACKSWINGINDEX,new Stat(ATTACKBACKSWINGNAME, attackBackswing));
     }
 
     public String getBat() {
-        return bat;
+        return statSparseArray.get(BASEATTACKTIMEINDEX).getValue();
     }
 
     public void setBat(String bat) {
-        this.bat = bat;
+        statSparseArray.put(BASEATTACKTIMEINDEX,new Stat(BASEATTACKTIMENAME, bat));
     }
 
     public String getMissileSpeed() {
-        return missileSpeed;
+        return statSparseArray.get(MISSILESPEEDINDEX).getValue();
     }
 
     public void setMissileSpeed(String missileSpeed) {
-        this.missileSpeed = missileSpeed;
+        statSparseArray.put(MISSILESPEEDINDEX,new Stat(MISSILESPEEDNAME, missileSpeed));
     }
 
     public String getSightRangeDay() {
-        return sightRangeDay;
+        return statSparseArray.get(SIGHTRANGEDAYINDEX).getValue();
     }
 
     public void setSightRangeDay(String sightRangeDay) {
-        this.sightRangeDay = sightRangeDay;
+        statSparseArray.put(SIGHTRANGEDAYINDEX,new Stat(SIGHTRANGEDAYNAME, sightRangeDay));
     }
 
     public String getSightRangeNight() {
-        return sightRangeNight;
+        return statSparseArray.get(SIGHTRANGENIGHTINDEX).getValue();
     }
 
     public void setSightRangeNight(String sightRangeNight) {
-        this.sightRangeNight = sightRangeNight;
+        statSparseArray.put(SIGHTRANGENIGHTINDEX,new Stat(SIGHTRANGENIGHTNAME, sightRangeNight));
     }
 
     public String getTurnRate() {
-        return turnRate;
+        return statSparseArray.get(TURNRATEINDEX).getValue();
     }
 
     public void setTurnRate(String turnRate) {
-        this.turnRate = turnRate;
+        statSparseArray.put(TURNRATEINDEX,new Stat(TURNRATENAME, turnRate));
     }
 
     public String getCollisionSize() {
-        return collisionSize;
+        return statSparseArray.get(COLLISIONSIZEINDEX).getValue();
     }
 
     public void setCollisionSize(String collisionSize) {
-        this.collisionSize = collisionSize;
+        statSparseArray.put(COLLISIONSIZEINDEX,new Stat(COLLISIONSIZENAME, collisionSize));
     }
 }

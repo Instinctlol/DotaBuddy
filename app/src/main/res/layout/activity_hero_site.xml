@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="jwwu.com.dotabuddy.activities.HeroSite">
+    tools:context=".activities.LexikonActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -42,7 +42,13 @@
                   </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_hero_site" />
+    <!-- <include layout="@layout/content_hero_site" /> -->
+
+    <android.support.v7.widget.RecyclerView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerview" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -62,7 +68,6 @@
         app:layout_anchor="@id/fab"
         app:layout_anchorGravity="left|center"
         android:layout_gravity="start|center"
-        app:layout_scrollFlags="snap"
         />
 
 

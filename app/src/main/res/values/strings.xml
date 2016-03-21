@@ -30,5 +30,6 @@
     <string name="title_activity_hero_site">HeroSite</string>
     <string name="action_herosite">HeroSite</string>
     <string name="hero_chooser">Choose a Hero</string>
+    <string name="title_activity_updatedatabase">Update Database</string>
 
 </resources>

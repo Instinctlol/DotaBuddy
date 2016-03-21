@@ -1,5 +1,6 @@
 package jwwu.com.dotabuddy.dota_logic;
 
+import android.graphics.Bitmap;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.Iterator;
  * Created by Instinctlol on 04.12.2015.
  */
 public class HeroAbility {
-    protected String name, image, type, description, lore, ability, affects,
+    protected String name, type, description, lore, ability, affects, affects2, damagetype,
     bkbblock, bkbtext, linkenblock, linkentext, purgeable, purgetext, illusionuse, illusiontext, breakable, breaktext, uam,
     castpoint, castbackswing;
     protected ArrayList<Pair<String,String>> traitsAndValuesList;
@@ -18,6 +19,7 @@ public class HeroAbility {
     protected String mana, cooldown, aghanimsupgrade;
     protected ArrayList<AbilityNote> notesList;
     private static String strSeparator = "__#,#__";
+    private Bitmap image;
 
 
 
@@ -32,8 +34,11 @@ public class HeroAbility {
             Iterator<Pair<String,String>> it = traitsAndValuesList.iterator();
 
             while(it.hasNext()) {
-                Pair p = it.next();
-                str = str + p.first + traitsAndValuesSeperator + p.second;
+                Pair<String,String> p = it.next();
+
+                if(!(p.first.isEmpty() && p.second.isEmpty()))
+                    str = str + p.first + traitsAndValuesSeperator + p.second;
+
                 // Do not append comma at the end of last element
                 if (it.hasNext()) {
                     str = str + strSeparator;
@@ -44,17 +49,21 @@ public class HeroAbility {
     }
 
     public void putFromTraitsAndValuesStringRepresentation(String str) {
-        ArrayList<Pair<String,String>> newList = new ArrayList<>();
-        String[] arr = str.split(strSeparator); //arr contains multiple pairs
+        if(!str.isEmpty()) {
+            ArrayList<Pair<String,String>> newList = new ArrayList<>();
+            String[] arr = str.split(strSeparator); //arr contains multiple pairs
 
-        for(String pair : arr) {    //split pairs into its elements and add them to Pair in ArrayList
-            String[] pairElements = pair.split(traitsAndValuesSeperator);
-            newList.add(new Pair<>(pairElements[0], pairElements[1]));
+            for(String pair : arr) {    //split pairs into its elements and add them to Pair in ArrayList
+                String[] pairElements = pair.split(traitsAndValuesSeperator);
+
+                if(pairElements.length>1)
+                    newList.add(new Pair<>(pairElements[0], pairElements[1]));
+            }
+            if(traitsAndValuesList!=null) {
+                traitsAndValuesList.clear();
+            }
+            traitsAndValuesList=newList;
         }
-        if(traitsAndValuesList!=null) {
-            traitsAndValuesList.clear();
-        }
-        traitsAndValuesList=newList;
     }
 
     public String getNotesStringRepresentation() {
@@ -75,15 +84,20 @@ public class HeroAbility {
     }
 
     public void putFromNotesStringRepresentation(String str) {
-        String[] arr = str.split(strSeparator);
-        ArrayList<String> newList = new ArrayList<>();
+        if(!str.isEmpty()) {
+            String[] arr = str.split(strSeparator);
+            ArrayList<String> newList = new ArrayList<>();
 
-        Collections.addAll(newList, arr);
-        if(notesList!=null)
-            notesList.clear();
+            Collections.addAll(newList, arr);
+            if(notesList!=null)
+                notesList.clear();
+            else {
+                notesList = new ArrayList<>();
+            }
 
-        for(String firstLevel : newList) {
-            notesList.add(AbilityNote.createFromFirstLevelString(firstLevel));
+            for(String firstLevel : newList) {
+                notesList.add(AbilityNote.createFromFirstLevelString(firstLevel));
+            }
         }
     }
 
@@ -96,11 +110,11 @@ public class HeroAbility {
         this.name = name;
     }
 
-    public String getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 
@@ -289,5 +303,21 @@ public class HeroAbility {
 
     public void setNotesList(ArrayList<AbilityNote> notesList) {
         this.notesList = notesList;
+    }
+
+    public void setAffects2(String affects2) {
+        this.affects2 = affects2;
+    }
+
+    public String getAffects2() {
+        return affects2;
+    }
+
+    public void setDamagetype(String damagetype) {
+        this.damagetype = damagetype;
+    }
+
+    public String getDamagetype() {
+        return damagetype;
     }
 }
