@@ -4,9 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -115,5 +118,41 @@ public class Utils {
         }
 
         return file;
+    }
+
+    public static Bitmap loadScaledDownBitmapFromFile(String pathname, int reqWidthDp, int reqHeightDp, Context context) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathname,options);
+
+
+        int reqWidth = Math.round(convertDpToPixel(reqWidthDp, context));
+        int reqHeight = Math.round(convertDpToPixel(reqHeightDp, context));
+
+        if(reqWidth<options.outWidth || reqHeight<options.outHeight) {
+            options.outHeight = Math.round(convertDpToPixel(reqHeightDp, context));
+            options.outWidth = Math.round(convertDpToPixel(reqWidthDp, context));
+        }
+
+        options.inJustDecodeBounds = false;
+
+        //TODO doesnt work? somehow isnt scaled down? not easy to tell by eye
+        return BitmapFactory.decodeFile(pathname, options);
+    }
+
+    /**
+     * This method convets dp unit to equivalent device specific value in pixels.
+     *
+     * @param dp A value in dp(Device independent pixels) unit. Which we need to convert into pixels
+     * @param context Context to get resources and device specific display metrics
+     * @return A float value to represent Pixels equivalent to dp according to device
+     */
+    public static float convertDpToPixel(float dp,Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * (metrics.densityDpi/160f);
+        return px;
     }
 }

@@ -33,7 +33,7 @@ public class AbilityViewHolder extends ChildViewHolder {
     }
 
     public void bind(HeroAbility hab) {
-        image.setImageBitmap(hab.getImage());
+        image.setImageBitmap(hab.getFullImage());
         desc.setText(hab.getDescription());
         ability.setText(hab.getAbility());
         affects.setText(hab.getAffects());

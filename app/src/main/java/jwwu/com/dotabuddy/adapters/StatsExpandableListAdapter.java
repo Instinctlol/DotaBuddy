@@ -63,7 +63,7 @@ public class StatsExpandableListAdapter extends BaseExpandableListAdapter {
         View resultView;
 
         if(convertView == null) { //create new View
-            resultView = layoutInflater.inflate(R.layout.herosite_expl_group_item,parent,false);
+            resultView = layoutInflater.inflate(R.layout.lexikon_group_item,parent,false);
         }
         else {
             resultView = convertView;
@@ -80,7 +80,7 @@ public class StatsExpandableListAdapter extends BaseExpandableListAdapter {
         View resultView;
 
         if(convertView==null) { //create new View
-            resultView=layoutInflater.inflate(R.layout.expl_child_stats_item,parent,false);
+            resultView=layoutInflater.inflate(R.layout.lexikon_child_stats_item,parent,false);
         }
         else {
             resultView = convertView;

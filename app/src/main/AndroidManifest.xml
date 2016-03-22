@@ -45,13 +45,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jwwu.com.dotabuddy.activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.UpdateDatabaseActivity"
+        <activity
+            android:name=".activities.UpdateDatabaseActivity"
             android:label="@string/title_activity_updatedatabase"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jwwu.com.dotabuddy.activities.MainActivity" />
         </activity>
+        <activity android:name=".activities.DotaSingletonInitializerActivity"></activity>
     </application>
 
 </manifest>

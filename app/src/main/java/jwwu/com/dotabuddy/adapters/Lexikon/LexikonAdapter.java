@@ -53,10 +53,10 @@ public class LexikonAdapter extends ExpandableRecyclerAdapter<LexikonParentListI
     private LexikonChildViewHolder onCreateChildViewHolder(ViewGroup childViewGroup, int viewType) {
         switch(viewType) {
             case TYPE_ABILITY:
-                View abilityView = mInflator.inflate(R.layout.expl_child_ability_item, childViewGroup, false);
+                View abilityView = mInflator.inflate(R.layout.lexikon_child_ability_item, childViewGroup, false);
                 return new LexikonChildViewHolder(abilityView,viewType);
             case TYPE_STAT:
-                View statView = mInflator.inflate(R.layout.expl_child_stats_item, childViewGroup, false);
+                View statView = mInflator.inflate(R.layout.lexikon_child_stats_item, childViewGroup, false);
                 return new LexikonChildViewHolder(statView,viewType);
             case TYPE_CHANGELOG:
                 throw new IllegalStateException("CHANGELOG NOT IMPLEMENTED YET");

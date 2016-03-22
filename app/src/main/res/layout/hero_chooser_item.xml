@@ -4,8 +4,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/smallherowidth"
+        android:layout_height="@dimen/smallheroheight"
         android:id="@+id/imageView5"
         android:src="@drawable/earthshaker" />
 
@@ -23,4 +23,5 @@
         android:autoText="false"
         android:gravity="center"
         android:textSize="20sp" />
+
 </RelativeLayout>

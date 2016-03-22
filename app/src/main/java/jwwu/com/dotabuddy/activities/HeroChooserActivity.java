@@ -68,28 +68,8 @@ public class HeroChooserActivity extends AppCompatActivity {
         // Get the database. If it does not exist, this is where it will also be created.
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        DotaSingleton.getInstance().init(this);
 
-        //TODO better activity lifecycle handling
-        /*curs = db.rawQuery("select *"+
-                " from "+ DotaDBContract.DotaHeroesDatabase.TABLE_NAME,null);
-        ids = new String[curs.getCount()];
-        picAndHeroname = new PortraitAndHeroname[DotaSingleton.getInstance().getHeroes().size()];*/
-
-
-
-        /*if(curs.moveToFirst())
-            do {
-                int i = curs.getPosition();
-                ids[i]=curs.getString(curs.getColumnIndexOrThrow(DotaDBContract.DotaHeroesDatabase._ID));
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-
-                Bitmap bitmap = BitmapFactory.decodeFile(curs.getString(curs.getColumnIndexOrThrow(DotaDBContract.DotaHeroesDatabase.COLUMN_NAME_PICTURE)), options);
-                String name = curs.getString(curs.getColumnIndexOrThrow(DotaDBContract.DotaHeroesDatabase.COLUMN_NAME_NAME)).replace("_"," ");
-
-                picAndHeroname[i] = new PortraitAndHeroname(bitmap,name);
-            }
-            while(curs.moveToNext());*/
 
         picAndHeroname = new PortraitAndHeroname[DotaSingleton.getInstance().getHeroes().size()];
         int count=0;
@@ -152,8 +132,6 @@ public class HeroChooserActivity extends AppCompatActivity {
                 super.finish();
             }
         }
-
-
     }
 
     @Override

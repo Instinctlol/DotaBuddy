@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import jwwu.com.dotabuddy.R;
+import jwwu.com.dotabuddy.dota_logic.DotaSingleton;
 import jwwu.com.dotabuddy.events.DownloadHeroSiteEvent;
 import jwwu.com.dotabuddy.events.DownloadHeroSiteUIEvent;
 import jwwu.com.dotabuddy.events.DownloadPicturesUIEvent;
@@ -157,6 +158,7 @@ public class UpdateDatabaseActivity extends AppCompatActivity {
                 jobManager.addJobInBackground(new FindPictures(cmds));
                 break;
             default:
+                DotaSingleton.getInstance().init(this);
                 cb1.setEnabled(true);
                 cb2.setEnabled(true);
                 btn.setEnabled(true);

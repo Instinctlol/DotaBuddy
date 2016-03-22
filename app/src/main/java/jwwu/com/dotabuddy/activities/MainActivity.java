@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     BroadcastReceiver receiver;
     TextView tv;
     Button btn;
-    //TODO android generell, über die app : anforderungen / features, realisierung
     DecimalFormat dfSecs;
     Timer timer;
     private DotaGameTime currGameTime;
@@ -41,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected static final int HEROCHOOSER_REQUEST = 2;
     private static final int UPDATE_INTERVAL_IN_MILLISEONDS = 100;
 
-    private static final String SHAREDPREFS = "dotabuddy-sharedprefs";
-    private static final String FIRSTTIMERUNPREF = "first_time_run";
+    public static final String SHAREDPREFS = "dotabuddy-sharedprefs";
+    public static final String FIRSTTIMERUNPREF = "first_time_run";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,14 +123,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button bt5 = (Button) findViewById(R.id.button5);
-        bt5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DotaSingleton.getInstance().init(getApplicationContext(),(TextView) findViewById(R.id.textView12),(ProgressBar) findViewById(R.id.progressBar2));
-            }
-        });
-
+        DotaSingleton.getInstance().init(this);
     }
 
 

@@ -1,6 +1,7 @@
 package jwwu.com.dotabuddy.dota_logic;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -19,12 +20,22 @@ public class HeroAbility {
     protected String mana, cooldown, aghanimsupgrade;
     protected ArrayList<AbilityNote> notesList;
     private static String strSeparator = "__#,#__";
-    private Bitmap image;
+    //TODO I dont think allocating abilityimages in Singleton is needed
+    //private Bitmap image;
+    private String imagepath;
 
 
 
     public HeroAbility() {
 
+    }
+
+    public Bitmap getFullImage() {
+        if(imagepath.isEmpty())
+            return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        return BitmapFactory.decodeFile(imagepath, options);
     }
 
     //i.e. "Dodge Chance####10%/15%/20%/25%__,__Critical Chance####10%/15%/20%/25%
@@ -110,12 +121,21 @@ public class HeroAbility {
         this.name = name;
     }
 
-    public Bitmap getImage() {
+    //TODO I dont think allocating abilityimages in Singleton is needed
+    /*public Bitmap getImage() {
         return image;
     }
 
     public void setImage(Bitmap image) {
         this.image = image;
+    }*/
+
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
+    }
+
+    public String getImagepath() {
+        return imagepath;
     }
 
     public String getType() {

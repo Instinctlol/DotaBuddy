@@ -1,6 +1,7 @@
 package jwwu.com.dotabuddy.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,10 +28,12 @@ public class LexikonActivity extends AppCompatActivity {
 
     private LexikonAdapter mAdapter;
 
+    public static final String LEXIKONHEROPREF = "lexhero";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hero_site);
+        setContentView(R.layout.activity_lexikon);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,11 +47,25 @@ public class LexikonActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab2.setVisibility(View.INVISIBLE);
+
 
 
         Intent intent = getIntent();
+        SharedPreferences settings = getSharedPreferences(MainActivity.SHAREDPREFS, 0);
 
-        String heroName = intent.getStringExtra("hero");
+        String heroName;
+        if(intent.getStringExtra("hero") != null) {     //can be null if not called from HeroChoosterActivity
+            heroName = intent.getStringExtra("hero");
+            settings.edit().putString(LEXIKONHEROPREF,heroName).apply();
+        }
+        else {
+            heroName = settings.getString(LEXIKONHEROPREF,"Abaddon");
+        }
+
+
+        DotaSingleton.getInstance().init(this);
 
         Hero hero = DotaSingleton.getInstance().getHero(heroName);
         ((ImageView) findViewById(R.id.imageView)).setImageBitmap(hero.mPortrait);
